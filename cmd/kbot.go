@@ -20,8 +20,8 @@ var (
 
 // kbotCmd represents the kbot command
 var kbotCmd = &cobra.Command{
-	Aliases: []string{"start"}, 
-	Short: "A brief description of your command",
+	Aliases: []string{"start"},
+	Short:   "A brief description of your command",
 	Long: `A longer description that spans multiple lines and likely contains examples
 and usage of using your command. For example:
 
@@ -37,7 +37,7 @@ to quickly create a Cobra application.`,
 		})
 
 		if err != nil {
-			log.Fatalf("Please check TELE_TOKEN env variable. %s", err)
+			log.Fatalf("Please check TELE_TOKEN env variable. %s", TeleToken)
 			return
 		}
 
@@ -45,16 +45,14 @@ to quickly create a Cobra application.`,
 			ReplyKeyboard: [][]telebot.ReplyButton{
 				{{Text: "Слава Україні"}, {Text: "Слава націі"}},
 				{{Text: "Україна"}},
-				
 			},
 		}
 
-		
 		kbot.Handle("/start", func(m telebot.Context) error {
 
 			return m.Send(fmt.Sprintf("Hello I'm Kbot %s!", appVersion), menu)
 		})
-		
+
 		kbot.Handle(telebot.OnText, func(m telebot.Context) error {
 
 			log.Print(m.Message().Payload, m.Text())
@@ -72,11 +70,10 @@ to quickly create a Cobra application.`,
 				m.Send("Sorry. I don't understand", menu)
 			}
 
-		
 			switch payload {
 			case "hello":
 				err = m.Send(fmt.Sprintf("Hello I'm Kbot %s!", appVersion))
-			
+
 			}
 			return err
 
